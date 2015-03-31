@@ -1,1 +1,2 @@
-u wot m8
+Turn down for what!
+Happy april fools day
