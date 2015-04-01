@@ -8,33 +8,50 @@ public class PFAgent : MonoBehaviour {
 
 	public List<Vector3> Points;	// These are just some points for interpolation
 	public float Length;			//Distance Length Dont worry about it
-	public float Direction; 		//Direction the agent will go
-
+	public Vector3 Direction; 		//Direction the agent will go
+	public float Deltatime;			//Just using for deltaTime;
+	
 	// Use this for initialization
 	void Start () 
 	{
 
+		gameObject.renderer.material.color = Color.red;
 		Points = new List<Vector3> ();
-		Points.Add (new Vector3 (10, 0,0));
-		Points.Add (new Vector3 (20, 0,10));
-		Points.Add (new Vector3 (30, 0,50));
-		Points.Add (new Vector3 (40, 0,80));
+	
+
+		//Specify the points you want the object to go betweeen
+
+		Points.Add (new Vector3 (9, 0,9)); 
+		Points.Add (new Vector3 (9, 0,-9));
+		Points.Add (new Vector3 (-9, 0,-9));
+		Points.Add (new Vector3 (-9, 0,9));
+
+	
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		Direction = (transform.position - Points [0]).magnitude;
-		Length = (transform.position - Points [0]);
 
-		Direction.Normalize ();
 
-		if (Length < 10 && Points.count != 0) 
+		Deltatime = Time.deltaTime;
+
+		Direction = (Points[0] - transform.position);
+		Length = (transform.position - Points[0]).magnitude;
+
+
+		Direction.Normalize();
+
+
+		if (Length < 1 && Points.Count != 1) 
 		{
+			Points.Add(Points[0]);
 			Points.RemoveAt(0);
 		}
+				
+	
 
-		transform.Translate (Direction);
+		transform.position += Direction * Deltatime * 15;
 
 	}
 }
