@@ -51,7 +51,7 @@ public class PFAgent : MonoBehaviour {
 				
 	
 
-		transform.position += Direction * Deltatime * 15;
+		transform.position += Direction * Deltatime * 5;
 
 	}
 }
