@@ -10,7 +10,13 @@ public class PFAgent : MonoBehaviour {
 	public float Length;			//Distance Length Dont worry about it
 	public Vector3 Direction; 		//Direction the agent will go
 	public float Deltatime;			//Just using for deltaTime;
-	
+
+	public float dot;
+	public Vector3 PlayerDir;
+	public GameObject Playerstuff;
+
+	public bool follow;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -18,30 +24,49 @@ public class PFAgent : MonoBehaviour {
 		gameObject.renderer.material.color = Color.red;
 		Points = new List<Vector3> ();
 	
-
 		//Specify the points you want the object to go betweeen
-
 		Points.Add (new Vector3 (9, 0,9)); 
 		Points.Add (new Vector3 (9, 0,-9));
 		Points.Add (new Vector3 (-9, 0,-9));
 		Points.Add (new Vector3 (-9, 0,9));
 
+		Playerstuff = GameObject.Find ("Player");
+
 	
+
+
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
+		Playerstuff.GetComponent ("Player");
+
 
 
 		Deltatime = Time.deltaTime;
-
-		Direction = (Points[0] - transform.position);
+		//Direction = (Points[0] - transform.position);
 		Length = (transform.position - Points[0]).magnitude;
 
 
-		Direction.Normalize();
+		PlayerDir = Vector3.Normalize(Playerstuff.transform.position - transform.position);
+	
+		if (!Physics.Raycast (transform.position, Direction, 10)) {
+			Direction = (Points[0] - transform.position);
+		}
 
+		PlayerDir.Normalize ();
+		Direction.Normalize ();
+		
+		dot = Vector3.Dot (Direction, PlayerDir);
+
+		if (dot > 0.70)
+		{
+			//i see the target!
+			Direction = PlayerDir;
+
+		}//else 
+	//		Direction = (Points[0] - transform.position);
 
 		if (Length < 1 && Points.Count != 1) 
 		{
