@@ -41,18 +41,23 @@ public class PFAgent : MonoBehaviour {
 	void Update () 
 	{
 		Playerstuff.GetComponent ("Player");
-
-
-
+		
 		Deltatime = Time.deltaTime;
 		//Direction = (Points[0] - transform.position);
 		Length = (transform.position - Points[0]).magnitude;
 
-
 		PlayerDir = Vector3.Normalize(Playerstuff.transform.position - transform.position);
+		RaycastHit hit;
 	
-		if (!Physics.Raycast (transform.position, Direction, 10)) {
+		if (!Physics.Raycast (transform.position, Direction, out hit, 10)) {
 			Direction = (Points[0] - transform.position);
+			Debug.DrawLine(transform.position, Playerstuff.transform.position, new Color(125, 125, 125));
+			Collider h = hit.collider;
+			Collider p = Playerstuff.collider;
+			if (h == p)
+			{
+				Debug.DrawLine(transform.position, Playerstuff.transform.position, new Color(125, 125, 125));
+			}
 		}
 
 		PlayerDir.Normalize ();
