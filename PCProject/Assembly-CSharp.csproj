@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\CitizenBehaviour.cs" />
+     <Compile Include="Assets\NavmeshGuard.cs" />
      <Compile Include="Assets\PFAgent.cs" />
      <Compile Include="Assets\Pathfinding.cs" />
      <Compile Include="Assets\Player.cs" />

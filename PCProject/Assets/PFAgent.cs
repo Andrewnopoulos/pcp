@@ -60,7 +60,7 @@ public class PFAgent : MonoBehaviour {
 		
 		dot = Vector3.Dot (Direction, PlayerDir);
 
-		if (dot > 0.70)
+		if (dot > 0.90)
 		{
 			//i see the target!
 			Direction = PlayerDir;
