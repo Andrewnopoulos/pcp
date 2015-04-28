@@ -16,6 +16,7 @@ public class NavmeshGuard : MonoBehaviour {
 	NavMeshHit hit;
 
 
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -28,7 +29,7 @@ public class NavmeshGuard : MonoBehaviour {
 		Points.Add (new Vector3 (-9, 0,9));
 
 
-		currentloc = 0;
+		//currentloc = 0;
 
 		agent = this.GetComponent<NavMeshAgent> ();
 		Playerstuff = GameObject.Find ("Player");
@@ -41,23 +42,29 @@ public class NavmeshGuard : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		if (agent.Raycast (Playerstuff.transform.position, out hit)) 
-		{
-			{
-						if (currentloc == 4)
-								currentloc = 0;
+		if (agent.Raycast (Playerstuff.transform.position, out hit)) {
+						{
+								if (currentloc == 4)
+										currentloc = 0;
 
-						distance = Vector3.Distance (this.transform.position, Points [currentloc]);
+								distance = Vector3.Distance (this.transform.position, Points [currentloc]);
 		
 
-						agent.destination = Points [currentloc];
+								agent.destination = Points [currentloc];
 
-						if (distance < 10)
-								currentloc++;
+								if (distance < 10)
+										currentloc++;
 
-			}
-		}
-		else if(!agent.Raycast (Playerstuff.transform.position, out hit)) 
-				agent.destination = Playerstuff.transform.position;
+							Debug.Log("Agent is following standard route");
+
+						}
+				} else if (!agent.Raycast (Playerstuff.transform.position, out hit)) {
+						agent.destination = Playerstuff.transform.position;
+						Debug.Log("Guard is following Player");
+				}
+
+
+
+
 	}
 }
